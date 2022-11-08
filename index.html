@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+<!-- Add fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Goblin+One&family=Vast+Shadow&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+
+
+        <meta charset="UTF-8">
+        <title>Arcade</title>
+
+<!-- Link stylesheet     -->
+        <link rel="stylesheet" href="style.css">
+ 
+<!-- Link javascript -->
+        <script src='app.js' defer></script>
+    </head>
+
+    <body>
+        <header>
+                <div class = 'title'>
+                        <h2>TIC TAC TOE</h2>
+                </div>
+        <!-- <select id="select">
+                <option value="one_player">One Player</option>
+                <option value="two_players">Two Players</option>
+        </select> -->
+                <div class="player_one_name">
+                        <span><input id="player_one" placeholder="  player one name"/></span><button class="button" id="submit_player_one">Enter Player One Name</button>
+                </div>
+
+                <div class="player_two_name">
+                        <span><input id="player_two" placeholder="  player two name"/></span><button class="button" id="submit_player_two">Enter Player Two Name</button>
+                </div>
+                       
+                <div class="names">
+                        <h4 id="player_names">Player Names:</h4>
+                        <div id="player_one_name_display"><h4>Player One</h4>      
+                        </div>  
+                        <div id="player_two_name_display"><h4>Player Two</h4>
+                        </div>
+                </div>
+        </header>
+
+        <table id="board">
+                <tr>
+                        <td id = "0" class="data_cell_class"></td>
+                        <td id = "1" class="data_cell_class"></td>
+                        <td id = "2" class="data_cell_class"></td>
+                </tr>
+                <tr>
+                        <td id = "3" class="data_cell_class"></td>
+                        <td id = "4" class="data_cell_class"></td>
+                        <td id = "5" class="data_cell_class"></td>
+                </tr> 
+                <tr>
+                        <td id = "6" class="data_cell_class"></td>
+                        <td id = "7" class="data_cell_class"></td>
+                        <td id = "8" class="data_cell_class"></td>
+                </tr> 
+        </table>
+                
+                <button class="button" id="reset">Reset Board</button>
+       
+                <h2 class="game_progress"></h2>
+      
+                <div class="points">
+                        <h3 id="player_one_points">X points</h3>
+                        <h3 id="player_two_points">O points</h3>
+                </div>
+
+
+    </body>
+
+</html>
