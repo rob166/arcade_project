@@ -3,6 +3,7 @@
 
     <head>
 <!-- Add fonts -->
+
         <link rel="preconnect" href="https://fonts.googleapis.com"> 
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Goblin+One&family=Vast+Shadow&display=swap" rel="stylesheet">
@@ -11,14 +12,15 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
 
-
         <meta charset="UTF-8">
         <title>Arcade</title>
 
 <!-- Link stylesheet     -->
+
         <link rel="stylesheet" href="style.css">
  
 <!-- Link javascript -->
+
         <script src='app.js' defer></script>
     </head>
 
@@ -31,6 +33,9 @@
                 <option value="one_player">One Player</option>
                 <option value="two_players">Two Players</option>
         </select> -->
+
+<!-- Input box and butons for player names -->
+
                 <div class="player_one_name">
                         <span><input id="player_one" placeholder="  player one name"/></span><button class="button" id="submit_player_one">Enter Player One Name</button>
                 </div>
@@ -38,7 +43,9 @@
                 <div class="player_two_name">
                         <span><input id="player_two" placeholder="  player two name"/></span><button class="button" id="submit_player_two">Enter Player Two Name</button>
                 </div>
-                       
+
+<!-- Display the players and whether they are X or O -->
+
                 <div class="names">
                         <h4 id="player_names">Player Names:</h4>
                         <div id="player_one_name_display"><h4>Player One</h4>      
@@ -47,6 +54,8 @@
                         </div>
                 </div>
         </header>
+
+<!-- Tic Tac Toe board made from table -->
 
         <table id="board">
                 <tr>
@@ -65,11 +74,17 @@
                         <td id = "8" class="data_cell_class"></td>
                 </tr> 
         </table>
-                
+
+<!-- Reset button                 -->
+
                 <button class="button" id="reset">Reset Board</button>
-       
+
+<!-- Message to let players know whose turn, win, or draw       -->
+
                 <h2 class="game_progress"></h2>
-      
+
+<!-- Player point totals       -->
+
                 <div class="points">
                         <h3 id="player_one_points">X points</h3>
                         <h3 id="player_two_points">O points</h3>
