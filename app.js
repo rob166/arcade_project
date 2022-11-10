@@ -28,7 +28,7 @@ let gameArray = ['', '', '', '', '', '', '', '', ''];
 
 //Initialize an array to determine if the game ends in a draw
 
-let filledArray = [];
+let drawArray = [];
 
 // Show which player's turn it is
 
@@ -50,64 +50,96 @@ function switchPlayer(){
 function newGame() {
   
 // Iterate through all 9 data cells to reset each to empty
+// for X or O, and remove color class aplied to winning combinations
 
   for (i = 0; i<= 8; ++i){
     dataCell[i].innerHTML = '';
+    dataCell[i].classList.remove('win_cell_color');
   };
 
 // Reset the array used to keep track of which data cells have been selected
 
   gameArray = ['', '', '', '', '', '', '', '', ''];
 
-// Reset 'X' to start the game  
+// Let other player start the next game  
 
-  playerTurn = 'X';
-  gameProgress.innerHTML = `it is ${playerTurn}'s turn`;
+  switchPlayer(); 
 
- // Reset the array used to check for a draw
+// Turn back on the event listeners that were turned off if a game
+// was a draw or win  
 
-  filledArray = [];
+  tableBoard.addEventListener('click', clickDataCell);
+  buttonNewGame.addEventListener('click', newGame);
+
+// Reset the array used to check for a draw
+ 
+  drawArray = [];
   return;
 };
 
 // Function to check if a player has won
 // Looks to see if the current player's turn has completed one of 
 // the winning combinations of row, column, or diagonal data cells
+// Adds color to the cells in the winning combination
 
 function checkIfWon() {
   if (gameArray[0] === playerTurn) {
     if (gameArray[1] === playerTurn && gameArray[2] === playerTurn) {
+      dataCell[0].classList.add('win_cell_color');
+      dataCell[1].classList.add('win_cell_color');
+      dataCell[2].classList.add('win_cell_color');
       return true;
     }
     if (gameArray[3] === playerTurn && gameArray[6] === playerTurn) {
-    return true;
+      dataCell[0].classList.add('win_cell_color');
+      dataCell[3].classList.add('win_cell_color');
+      dataCell[6].classList.add('win_cell_color');
+      return true;
     }
     if (gameArray[4] === playerTurn && gameArray[8] === playerTurn) {
-    return true;
+      dataCell[0].classList.add('win_cell_color');
+      dataCell[4].classList.add('win_cell_color');
+      dataCell[8].classList.add('win_cell_color');
+      return true;
     }
   }
 
   if (gameArray[2] === playerTurn) {
     if (gameArray[5] === playerTurn && gameArray[8] === playerTurn) {
-    return true;
+      dataCell[2].classList.add('win_cell_color');
+      dataCell[5].classList.add('win_cell_color');
+      dataCell[8].classList.add('win_cell_color');
+      return true;
     }
     if (gameArray[4] === playerTurn && gameArray[6] === playerTurn) {
-    return true;
+      dataCell[2].classList.add('win_cell_color');
+      dataCell[4].classList.add('win_cell_color');
+      dataCell[6].classList.add('win_cell_color');
+      return true;
     }
   }
 
   if (gameArray[4] === playerTurn) {
     if (gameArray[3] === playerTurn && gameArray[5] === playerTurn) {
-    return true;
+      dataCell[4].classList.add('win_cell_color');
+      dataCell[3].classList.add('win_cell_color');
+      dataCell[5].classList.add('win_cell_color');
+      return true;
     }
     if (gameArray[1] === playerTurn && gameArray[7] === playerTurn) {
-    return true;
+      dataCell[4].classList.add('win_cell_color');
+      dataCell[1].classList.add('win_cell_color');
+      dataCell[7].classList.add('win_cell_color');
+      return true;
     }
   }
 
   if (gameArray[6] === playerTurn) {
     if (gameArray[7] === playerTurn && gameArray[8] === playerTurn) {
-    return true;
+      dataCell[6].classList.add('win_cell_color');
+      dataCell[7].classList.add('win_cell_color');
+      dataCell[8].classList.add('win_cell_color');
+      return true;
     }
   }
 };
@@ -117,7 +149,7 @@ function checkIfWon() {
 function clickDataCell (event) {
   let targetIdValue = event.target.id;
 
-// Deterine if data cell already has been selected (not empty), if not 
+// Deterine if data cell already has been selected (i.e. not empty), if not 
 // claim it for the current player
 
   if (gameArray[targetIdValue] !=='') {
@@ -132,14 +164,17 @@ function clickDataCell (event) {
 
 // Add the claimed data cell to the array used to determine a draw    
 
-    filledArray += gameArray[targetIdValue];
+    drawArray += gameArray[targetIdValue];
 
 // If the draw array contains 9 values, the game ends in a draw
-// Wait one second and reset the board    
+// Wait some time and reset the board, turning off the reset board
+// listener so the correct player's turn is set after the waiting period
     
-    if (filledArray.length >=9) {
+    if (drawArray.length >= 9) {
+
       gameProgress.innerHTML = `IT IS A DRAW!  No points, try again!`;
-      setTimeout(newGame, 1000);
+      buttonNewGame.removeEventListener('click', newGame);
+      setTimeout(newGame, 4000);
       return ;
     };
 
@@ -150,13 +185,18 @@ function clickDataCell (event) {
 
       gameProgress.innerHTML = `${playerTurn} HAS WON!  You get a point!`;
 
-// Wait one second before resetting the game board to continue play      
-      
-      setTimeout(newGame, 1000);
+// Wait some time before resetting the game board to continue play, turning
+// off the data cell event listener so nothing else is registered during the 
+// waiting period, and the reset board listener so the correct player's turn
+// is set after the waiting period
 
-// Add a point to the winning player's total after the  board reset to 
-// maintain the score cumulatively      
+      tableBoard.removeEventListener('click', clickDataCell);
+      buttonNewGame.removeEventListener('click', newGame);
 
+      setTimeout(newGame, 4000);
+
+// Add a point to the winning player's total 
+    
       if (playerTurn == 'X') {
         playerXCount = ++playerXCount
         playerOnePoints.innerHTML = `${playerTurn} has ${playerXCount} points`;
@@ -176,6 +216,7 @@ function clickDataCell (event) {
 // to continue play
 
 switchPlayer();
+
 return;
 };
 
@@ -188,7 +229,7 @@ tableBoard.addEventListener('click', clickDataCell);
 // Listener for adding Player One's name to screen and assign to 'X'
 
 buttonPlayerOne.addEventListener('click', function() {
-  playerOneDisplay.innerHTML = `${playerOneName.value}, you will play as 'X' and go first`
+  playerOneDisplay.innerHTML = `${playerOneName.value}, you will play as 'X'`
   
 // Clear input box after entering name and disable button
 
@@ -201,7 +242,7 @@ buttonPlayerOne.addEventListener('click', function() {
 // Listener for adding Player Two's name to screen and assign to 'O'
 
 buttonPlayerTwo.addEventListener('click', function() {
-  playerTwoDisplay.innerHTML = `${playerTwoName.value}, you will play as 'O' and go second`
+  playerTwoDisplay.innerHTML = `${playerTwoName.value}, you will play as 'O'`
   playerTwoName.value = "";
   buttonPlayerTwo.disabled = true;
   return;

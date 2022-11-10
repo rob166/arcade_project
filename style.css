@@ -128,10 +128,12 @@
     font-family: 'Roboto Slab', serif;
     font-size: 15px;
   }
-  
+
   .game_progress {
     font-family: 'Vast Shadow', cursive; 
     font-size: 25px;
   }
- 
-
+  
+  .win_cell_color {
+    background-color: goldenrod;
+  }
